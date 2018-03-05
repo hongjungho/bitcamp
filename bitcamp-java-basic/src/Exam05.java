@@ -21,5 +21,5 @@ class G {}
 // 2) JVM에게 바이트코드 파일이 있는 위치를 알려준다
 // > java -classpath 클래스파일이있는 폴더위치 클래스명
 // > java -cp 클래스파일이있는 폴더위치 클래스명
-// > java -classpath ./bin Exam05
-// > java -cp ./bin Exam05
+// > java -classpath ./bin 패키지명.Exam05
+// > java -cp ./bin 패키지명.Exam05

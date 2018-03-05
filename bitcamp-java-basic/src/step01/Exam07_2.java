@@ -1,0 +1,12 @@
+//문자의 리터럴 -크기
+package step01;
+
+public class Exam07_2 {
+    public static void main(String[] args) {
+        // 문자는(영어, 한글, 한자 상관없이) 2바이트 메모리를 사용한다
+        // 문자코드는 음수가 없으므로 
+        // 0에서 부터 ~65535 까지의 크기를 갖는다.
+        System.out.println('a'); 
+        
+    }
+}

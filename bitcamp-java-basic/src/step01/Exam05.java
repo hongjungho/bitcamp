@@ -1,6 +1,6 @@
 package step01;
 
-public class Exam04 {
+public class Exam05 {
     public static void main(String[] args) {
         // 정수 
         // => 4바이트 크기의 정수
