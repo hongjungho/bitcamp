@@ -1,14 +1,9 @@
 package bitcamp.java106.pms;
 
 import bitcamp.java106.pms.domain.Team;
-import bitcamp.java106.pms.domain.Member;
 import java.util.Scanner;
-// ver 1.1 - 명령어를 잘못 입력했을때 안내 문구를 출력한다.
-// ver 1.0 - member/view 명령을 구현한다
-// ver 1.0 -member/list 명령을 구현한다
-// ver 0.9 - member/add 명령을 구현한다.
-        // 회원 정보를 담을 새로운 데이터 타입을 정의한다. => member.java
-        // 여러 회원 정보를 저장할 레퍼런스 배열을 준비한다.
+
+
 // ver 0.8 - team/view 명령을 구현한다
         // 1단계 : 입력 값에서 명령어와 검색어를 구분한다.
         // 2단계 : 기능이나 코드가 바뀌면 그에따라 적절히 변수명도 바뀔 필요가 있다.
@@ -16,7 +11,6 @@ import java.util.Scanner;
         // 4단계 : 팀명이 없으면 안내문구 실행 -v08_3
         // 5단계 : 팀명으로 배열을 뒤져 팀 정보를 찾는다.
         // 6단계 : 팀명으로 검색할 때 대소문자를 구분하지 않는다.
-        // 7단계 : 팀명이 일치하는 팀이 없으면 안내문구를 출력한다.
 // ver 0.7 - team/list 명령을 구현한다
 // ver 0.6 - team/add 명령을 구현한다
 // ver 0.5 - help 명령을 구현한다
@@ -28,14 +22,12 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args){
+        
+        
         Scanner keyScan = new java.util.Scanner(System.in);
-
         Team[] teams = new Team[1000];
         int teamIndex = 0;
         
-        Member[] members = new Member[1000];
-        int memberIndex = 0;
-
         while (true) {
             System.out.print("명령> ");
             String[] arr = keyScan.nextLine().toLowerCase().split(" ");
@@ -59,7 +51,6 @@ public class App {
                 System.out.println("회원 조회 명령 : member/list");
                 System.out.println("회원 상세조회 명령 : member/view 아이디");
                 System.out.println("종료 : quit");
-
             } else if (menu.equals("team/add")) {
 
                 System.out.println("[팀 정보 입력]");
@@ -101,78 +92,51 @@ public class App {
                     System.out.println();
                     continue;
                 }
-                
-                Team team = null;
+
                 for (int i =0; i < teamIndex; i++) {
                     if(option.equals(teams[i].name.toLowerCase())) {
-                        team = teams[i];
-                        break;
+                        System.out.printf("팀명: %s\n", teams[i].name);
+                        System.out.printf("설명: %s\n", teams[i].text);
+                        System.out.printf("최대인원: %d\n", teams[i].person);
+                        System.out.printf("기간: %s ~ %s\n", teams[i].start,teams[i].end);
                     }
                 }
-                    if(team == null) {
-                        System.out.println("해당 이름의 팀이 없습니다.");
-                    } else {
-                        System.out.printf("팀명: %s\n", team.name);
-                        System.out.printf("설명: %s\n", team.text);
-                        System.out.printf("최대인원: %d\n", team.person);
-                        System.out.printf("기간: %s ~ %s\n", team.start,team.end);
-
-                    }
-                } else if (menu.equals("member/add")) {
-
-                System.out.println("[회원 정보 입력]");
-                Member member = new Member();
-
-                System.out.println("아이디? ");
-                member.id = keyScan.nextLine();
-
-                System.out.println("이메일? ");
-                member.email = keyScan.nextLine();
-            
-                System.out.println("암호? ");
-                member.password = keyScan.nextLine();
-            
-            
-                members[memberIndex++] = member;
-                
-
-        } else if (menu.equals("member/list")) {
-            System.out.println("[회원 목록]");
-            for (int i=0; i < memberIndex; i++) {
-                System.out.printf("%s, %s, %s\n",
-                members[i].id,members[i].email,members[i].password);
-            }
-
-        } else if (menu.equals("member/view")) {
-            System.out.println("[회원 정보 조회]");
-            if (option == null) {
-                System.out.println("아이디을 입력하시기 바랍니다.");
                 System.out.println();
-                continue;
             }
+
+            System.out.println();
+        }
+/*
+        // 팀 정보를 받을 메모리 준비
+        Team[] teams = new Team[5];
+        int count = 0;
+
+        for(int i = 0; i < teams.length; i++) {
+
+            count++;
+            teams[i] = new Team();
+        
+                
             
-            Member member= null;
-            for (int i =0; i < memberIndex; i++) {
-                if(option.equals(members[i].id.toLowerCase())) {
-                    member = members[i];
-                    
-                    break;
-                }
-            }
 
-            if(member == null) {
-                System.out.println("해당 아이디의 회원이없습니다.");
-            } else {
-                System.out.printf("아이디: %s\n", member.id);
-                System.out.printf("이메일: %s\n", member.email);
-                System.out.printf("암호: %s\n", member.password);
-            }
+            System.out.print ("계속하시겠습니까?(Y/n)");
 
-            } 
-             else {
-                 System.out.println("명령어가 올바르지 않습니다.");
-             }
-             System.out.println();
+            if ( count == teams.length ) {
+
+                break;
+            }
+            String str = keyScan.nextLine();
+            if (str.toLowerCase().equals("n")) {
+                   break;
+                } 
+            
          }
+        System.out.println("---------------------");
+        for (int i = 0; i < count; i++) {
+        
+            System.out.printf("%s ,%d명 ,%s ~ %s\n",teams[i].name,
+                              teams[i].person,teams[i].start,teams[i].end);
+        
+        } */
     }
-}   
+}
