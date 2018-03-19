@@ -1,0 +1,24 @@
+// 클래스 메소드의 활용
+package step07;
+
+
+
+
+
+public class Exam02_2 {
+    public static void main(String[] args) {
+        // 계산 결과를 보관할 변수는 더이상 필요가 없다.
+        // Calculator2 내부에서 계산 결과를 관리한다.
+        
+        // 2 + 3 - 1 * 7 / 3 = ?
+        // 연산자 우선 순위를 고려 하지 않고 순서대로 계산하라!
+        Calculator2.plus(2);
+        Calculator2.plus(3);
+        Calculator2.minus(1);
+        Calculator2.multiple(7);
+        Calculator2.divide(3);
+
+        System.out.printf("result = %d\n",Calculator2.result);
+    }
+}
+
