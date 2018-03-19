@@ -2,7 +2,7 @@
 package step07;
 
 
-public class Exam03_1 {
+public class ExamX_3 {
     public static void main(String[] args) {
 
         Score3 score = new Score3();
@@ -16,6 +16,7 @@ public class Exam03_1 {
         // 클래스 메서드를 사용할 때 마다 매번 인스턴스의 주소를 파라미터로 넘겨줘야 했다.
         // 그러나 인스턴스의 메모리를 사용하는 순간 파라미터가 아닌 
         // 메서드 앞에 인스턴스 주소를 준다.
+        // 훨씬 소스 코드의 목적을 이해하는데 직관적이다.
         score.calculate(); // 변수.연산자(); 형태와 같다 ex) i++;
         
         System.out.printf("%s,%d,%d,%d,%d,%.1f\n",
