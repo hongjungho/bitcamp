@@ -1,5 +1,4 @@
 // 생성자 - 생성자 호출 막기
-
 package step08;
 
 class X {
@@ -9,17 +8,21 @@ class X {
         System.out.println("X()");
     }
 }
+
 public class Exam04_4 {
-    
-
     public static void main(String[] args) {
-
-        X obj;
+        X obj1;
         
-        //생성자의 접근이 막혀 있기 때문에 생성자를 호출할수 없다
-        // 따라서 new 명령으로 객체를 생성할수 없도록 만들수 있다.
-        obj1 = new X(); //컴파일 오류
-        
+        // 생성자의 접근이 막혀있기 때문에 생성자를 호출할 수 없다.
+        // 따라서 new 명령으로 객체를 생성할 수 없도록 만든다.
+        //obj1 = new X(); // 컴파일 오류!
     }
-
 }
+
+
+
+
+
+
+
+

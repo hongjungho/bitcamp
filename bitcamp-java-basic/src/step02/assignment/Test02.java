@@ -1,6 +1,6 @@
 package step02.assignment;
 
-// 5단계: 반복문을 사용하여 입력과 출력 코드를 간단히 하라!
+// 6단계: 형식을 갖춘 문자열 출력하기
 public class Test02 {
     public static void main(String[] args) {
 
@@ -16,27 +16,20 @@ public class Test02 {
         java.util.Scanner keyScan = new java.util.Scanner(keyboard);
 
         for (int i = 0; i < 5; i++) {
-            System.out.printf("%s %d %d %d %f",
-                name[i],kor[i],eng[i],math[i],sum[i],average[i]); // ex) 입력? 홍길동 100 90 80
-            
+            System.out.print("입력? "); // ex) 입력? 홍길동 100 90 80
+            name[i] = keyScan.next();
+            kor[i] = keyScan.nextInt();
+            eng[i] = keyScan.nextInt();
+            math[i] = keyScan.nextInt();
+        
             sum[i] = kor[i] + eng[i] + math[i];
             average[i] = sum[i] / 3;
         }
 
         System.out.println("------------------------------");
         for (int i = 0; i < 5; i++) {
-            System.out.print(name[i]);
-            System.out.print(" ");
-            System.out.print(kor[i]);
-            System.out.print(" ");
-            System.out.print(eng[i]);
-            System.out.print(" ");
-            System.out.print(math[i]);
-            System.out.print(" ");
-            System.out.print(sum[i]);
-            System.out.print(" ");
-            System.out.print(average[i]);
-            System.out.println();
+            System.out.printf("%s %d %d %d %d %f\n", 
+                name[i], kor[i], eng[i], math[i], sum[i], average[i]);
         }
     }
 }

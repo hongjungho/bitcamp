@@ -1,24 +1,22 @@
 // 흐름 제어문 - 반복문 while
-
 package step05;
+
 import java.util.Scanner;
-import javax.lang.model.util.ElementScanner6;
 
-// 상수를 좀 더 조직적으로 관리하는 방법
-// => enum을 사용하여 상수를 정의한다.
-enum Level {
-    GUEST2,MEMBER2,ADMIN2
-}
 public class Exam03_1 {
+    
     public static void main(String[] args) {
-       int count = 0;
+        
+        int count = 0;
 
-       //while (조건) 문장;
-       // => 조건이 참인 동안 문장을 계속 실행한다.
-       while (count < 5)
+        // while (조건) 문장;
+        // => 조건이 참인 동안 문장을 계속 실행한다.
+        while (count < 5) 
             System.out.println(count++);
-            System.out.println("----------");
-        //while (조건){}
+        
+        System.out.println("---------------------------");
+
+        // while (조건) {}
         // => 여러 개의 문장을 반복 실행하려면 블록으로 묶어라!
         count = 0;
         while (count < 5) {

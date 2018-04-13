@@ -9,20 +9,21 @@ public class Test03 {
         int len = keyScan.nextInt();
 
         int starLen = 1;
-        while (starLen <= len) { // 세로길이
+        while (starLen <= len) {
             int spaceCnt = 1;
             int spaceLen = (len - starLen) / 2;
             while (spaceCnt <= spaceLen) {
                 System.out.print(" ");
                 spaceCnt++;
             }
+            
             int starCnt = 1;
-            while (starCnt <= starLen) { // 별찍히는 갯수
+            while (starCnt <= starLen) {
                 System.out.print("*");
                 starCnt++;
             }
             System.out.println();
-            starLen+=2;
+            starLen += 2;
         }
     }
 }

@@ -1,21 +1,55 @@
 package bitcamp.java106.pms;
 
-import bitcamp.java106.pms.domain.Board;
-import bitcamp.java106.pms.controller.TeamController;
-import bitcamp.java106.pms.controller.MemberController;
-import bitcamp.java106.pms.util.Console;
+import java.util.HashMap;
 import java.util.Scanner;
 
+import bitcamp.java106.pms.context.ApplicationContext;
+import bitcamp.java106.pms.controller.Controller;
+import bitcamp.java106.pms.dao.BoardDao;
+import bitcamp.java106.pms.dao.ClassroomDao;
+import bitcamp.java106.pms.dao.MemberDao;
+import bitcamp.java106.pms.dao.TaskDao;
+import bitcamp.java106.pms.dao.TeamDao;
+import bitcamp.java106.pms.dao.TeamMemberDao;
+import bitcamp.java106.pms.util.Console;
+
 public class App {
+    
+    static ApplicationContext iocContainer;
+    
     static Scanner keyScan = new Scanner(System.in);
     public static String option = null; 
-    static int getBoardIndex(String title) {
-        
-    }
-
+    
     static void onQuit() {
         System.out.println("안녕히 가세요!");
+        BoardDao boardDao = (BoardDao) iocContainer.getBean(BoardDao.class);
+        ClassroomDao classroomDao = (ClassroomDao) iocContainer.getBean(ClassroomDao.class);
+        MemberDao memberDao = (MemberDao) iocContainer.getBean(MemberDao.class);
+        TaskDao taskDao = (TaskDao) iocContainer.getBean(TaskDao.class);
+        TeamDao teamDao = (TeamDao) iocContainer.getBean(TeamDao.class);
+        TeamMemberDao teamMemberDao = (TeamMemberDao) iocContainer.getBean(TeamMemberDao.class);
+        
+        // 각각의 데이터 저장에 대해 예외 처리를 분리해야 한다.
+        // 그래야만 예외가 발생하더라도 다른 데이터 저장은 정상적으로 수행할 것이다.
+        try {boardDao.save();} 
+        catch (Exception e) { System.out.println("게시물 데이터 저장 중 오류 발생!");}
+        
+        try {classroomDao.save();} 
+        catch (Exception e) { System.out.println("수업 데이터 저장 중 오류 발생!");}
+        
+        try {memberDao.save();} 
+        catch (Exception e) { System.out.println("회원 데이터 저장 중 오류 발생!");}
+        
+        try {taskDao.save();} 
+        catch (Exception e) { System.out.println("작업 데이터 저장 중 오류 발생!");}
+            
+        try {teamDao.save();} 
+        catch (Exception e) { System.out.println("팀 데이터 저장 중 오류 발생!");}    
+        
+        try {teamMemberDao.save();} 
+        catch (Exception e) { System.out.println("팀멤버 데이터 저장 중 오류 발생!");}
     }
+
     static void onHelp() {
         System.out.println("[도움말]");
         System.out.println("팀 등록 명령 : team/add");
@@ -26,22 +60,27 @@ public class App {
         System.out.println("회원 상세조회 명령 : member/view 아이디");
         System.out.println("종료 : quit");
     }
-    
-    public static void main(String[] args) {
-        // 클래스를 사용하기 전에 필수 값을 설정한다.
-        TeamController.keyScan = keyScan;
-        MemberController.keyScan = keyScan; //ㅁㄴㅇ9ㅂㅈㅇ90ㅂ저1
+
+    public static void main(String[] args) throws Exception {
+        
+        // 기본 객체 준비
+        HashMap<String,Object> defaultBeans = new HashMap<>();
+        defaultBeans.put("java.util.Scanner", keyScan);
+        
+        // 기본 객체와 함께 @Component가 붙은 클래스의 객체를 준비한다.
+        iocContainer = new ApplicationContext(
+                "bitcamp.java106.pms", defaultBeans);
+        
         Console.keyScan = keyScan;
-        Board[] boards = new Board[1000];
-        int boardIndex = 0;
-        
-        
+
         while (true) {
             String[] arr = Console.prompt();
+
             String menu = arr[0];
-            String option = null; // 문자열 없음!
             if (arr.length == 2) {
                 option = arr[1];
+            } else {
+                option = null;
             }
             
             if (menu.equals("quit")) {
@@ -49,116 +88,38 @@ public class App {
                 break;
             } else if (menu.equals("help")) {
                 onHelp();
-            } else if (menu.startsWith("team/")) {
-                TeamController.service(menu , option);
-            } else if (menu.startsWith("member/")) {
-                MemberController.service(menu , option);
-            } else if (menu.equals("board/add")) {
-                System.out.println("[게시글 등록]");
-                Board board = new Board();
-
-                System.out.print("제목? ");
-                board.title = keyScan.nextLine();
-
-                System.out.print("내용? ");
-                board.text = keyScan.nextLine();
-
-                System.out.print("등록일? ");
-                board.start = keyScan.nextLine();
-
-                boards[boardIndex++] = board;
-            } else if (menu.equals("board/list")) {
-                System.out.println("[게시판 목록]");
-                for(int i=0; i < boardIndex; i++) {
-                    System.out.printf("%s ,%s , %s\n",boards[i].title,
-                                        boards[i].text,boards[i].start);
-                }
-            } else if (menu.equals("board/view")) {
-                System.out.println("[게시글 조회]");
-
-                if (option == null) {
-                    System.out.println("제목을 입력하세요");
-                    continue;
-                }
-                Board board = null;
-                for(int i =0; i < boardIndex; i++) {
-                    if(option.equals(boards[i].title.toLowerCase())) {
-                        board = boards[i];
-                        break;
+            } else {
+                try {
+                    Controller controller = (Controller) iocContainer.getBean(menu);
+                    
+                    if (controller != null) {
+                        controller.service(menu, option);
+                    } else {
+                        System.out.println("명령어가 올바르지 않습니다.");
                     }
-                } 
-                if(board == null) { 
-                    System.out.println("입력된 제목이 없습니다");
+                } catch (Exception e) {
+                    if (keyScan.hasNextLine()) { 
+                        // 키보드 입력으로 남은 잔여 데이터가 있다면 읽어서 버린다.
+                        keyScan.nextLine(); 
                     }
-                else {
-                    System.out.printf("제목: %s\n", board.title);
-                    System.out.printf("내용: %s\n", board.text);
-                    System.out.printf("등록일: %s\n",board.start);
-                    }
-            }else if (menu.equals("board/update")) {
-                System.out.println("[게시글 변경]");
-                
-                if (option == null) {
-                    System.out.println("아이디를 입력하시기 바랍니다.");
-                    return;
+                    System.out.println("작업 실행 중에 오류가 발생하였습니다.");
+                    System.out.println("명령을 다시 실행해주세요!");
                 }
-                
-                Board board = null;
-                int i;
-                for (i = 0; i < boardIndex; i++) {
-                    if (boards[i] == null) 
-                    continue;
-                    if (option.equals(boards[i].title.toLowerCase())) {
-                        board = boards[i];
-                        break;
-                    }
-                }
-        
-                if (board == null) {
-                    System.out.println("해당 아이디의 회원이 없습니다.");
-                } else {
-                    Board updateBoard = new Board();
-                    System.out.printf("제목(%s): ", board.title);
-                    updateBoard.title = keyScan.nextLine();
-                    System.out.printf("내용(%s): ",board.text);
-                    updateBoard.text = keyScan.nextLine();
-                    updateBoard.start = board.start;
-                    boards[i] = updateBoard;
-                    System.out.println("변경하였습니다.");
-                }
-                
-            } else if (menu.equals("board/delete")){
-                System.out.println("[게시글 삭제]");
-                if (option == null) {
-                System.out.println("제목을 입력 하시기 바랍니다.");
-                return;
-                }
-        
-                Board board = null;
-                int i;
-                for (i = 0; i < boardIndex; i++) {
-                    if (option.equals(boards[i].title.toLowerCase())) {
-                        board = boards[i];
-                         break;
-                        }
-                    }
+            }
 
-                if (board == null) {
-                System.out.println("해당 게시판의 제목이 아닙니다.");
-                } else {
-                System.out.print("정말 삭제하시겠습니까?(y/N) ");
-                String input = keyScan.nextLine().toLowerCase();
-                    if (input.equals("y")) {
-                        boards[i] = null;
-                        System.out.println("삭제하였습니다.");
-                        }
-                    }
-                }
-                 
-                else 
-                System.out.println("명령어가 올바르지 않습니다.");
-                
-
+            System.out.println(); 
         }
     }
 }
+
+//ver 25 - 예외 처리 코드 추가.
+//ver 24 - 파일 저장 기능 호출. 멤버 및 팀 데이터를 준비하는 메서드 제거.
+//ver 17 - Task 관리 기능 추가
+// ver 15 - TeamDao와 MemberDao 객체 생성. 
+//          팀 멤버를 다루는 메뉴 추가.
+
+
+
+
+
+

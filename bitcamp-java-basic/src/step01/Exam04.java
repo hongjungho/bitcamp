@@ -1,3 +1,4 @@
+// 리터럴(literal)
 package step01;
 
 public class Exam04 {
@@ -37,3 +38,6 @@ public class Exam04 {
 
     }
 }
+
+// 자바 코드로 값을 표현 것  
+// 
