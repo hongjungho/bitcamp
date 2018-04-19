@@ -7,19 +7,16 @@ public class Exam01_2 {
 
     public static void main(String[] args) throws Exception {
         FileInputStream fileIn = new FileInputStream("temp/test7.data");
+        
+        // FileInputStream 객체에 String,int,boolean 값을 읽는 
+        // 플러그인/장신구/보조장치(decorator)를 장착한다.
         DataInputStream in = new DataInputStream(fileIn);
         
-        Member member = null;
+        Member member = new Member();
         
-        member = new Member();
-        
-        // 1) 이름 읽기
+        // 플러그인을 통해 String, int, boolean 값을 읽는다.
         member.name = in.readUTF();
-        
-        // 2) 나이(int) 읽기
         member.age = in.readInt();
-        
-        // 3) 성별 읽기
         member.gender = in.readBoolean();
         
         in.close();

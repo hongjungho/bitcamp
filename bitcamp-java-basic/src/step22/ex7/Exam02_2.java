@@ -10,7 +10,7 @@ public class Exam02_2 {
         FileInputStream fileIn = new FileInputStream("temp/jls8.pdf");
         BufferedInputStream in = new BufferedInputStream(fileIn);
         
-        FileOutputStream fileOut = new FileOutputStream("temp/jls8.pdf");
+        FileOutputStream fileOut = new FileOutputStream("temp/jls8_5.pdf");
         BufferedOutputStream out = new BufferedOutputStream(fileOut);
 
         int b;

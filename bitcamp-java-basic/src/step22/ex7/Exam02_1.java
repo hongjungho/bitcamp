@@ -1,4 +1,4 @@
-// BufferedInputStream 사용 후 - 데이터 읽는데 걸린 시간 측정
+// 플러그인으로 전환한 BufferedInputStream 사용하기 - 읽기 시간 측정
 package step22.ex7;
 
 import java.io.FileInputStream;
@@ -6,8 +6,8 @@ import java.io.FileInputStream;
 public class Exam02_1 {
 
     public static void main(String[] args) throws Exception {
-        FileInputStream input = new FileInputStream("temp/jls8.pdf");
-        BufferedInputStream in = new BufferedInputStream(input);
+        FileInputStream fileIn = new FileInputStream("temp/jls8.pdf");
+        BufferedInputStream in = new BufferedInputStream(fileIn);
 
         int b;
         

@@ -1,32 +1,35 @@
+// OutputStream에 붙이는 플러그인(decorator)을 다른 플러그인에 붙이려면,
+// 플러그인(decorator) 클래스도 OutputStream의 가족이 되어야 한다.  
 package step22.ex8;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class DataOutputStream extends OutputStream  {
+// 이 상속은 기능을 상속 받기 위한 것이 아니다.
+// 같은 그룹으로 묶이기 위함이다.
+public class DataOutputStream extends OutputStream {
+    
     OutputStream out;
     
-    
-    public DataOutputStream(OutputStream out) throws Exception {  // 생성자를 통하여  dataoutputStream을 만들때 outputStream 값을 대입시킨다?
-        this.out=out;
+    public DataOutputStream(OutputStream out) {
+        this.out = out;
     }
     
     @Override
-    public void write(int b) throws IOException { // 쓰는이유 :dataoutputStream 이 상속받은 outputStream 클래스에서
-                                                  //write(int x)는 추상메서드로 정의했기때문에 하위클래스인 dataoutputStream에서 따로 정의해하한다.
+    public void write(int b) throws IOException {
+        // 생성자에서 받은 출력 객체의 write() 메서드를 사용
         out.write(b);
-        
     }
+    
     public void writeUTF(String str) throws Exception {
-        // 상속 받은 write() 메서드를 사용하여 문자열 출력
-        byte[] bytes = str.getBytes("UTF-8"); 
+        // 생성자에서 받은 출력 객체의 write() 메서드를 사용하여 문자열 출력
+        byte[] bytes = str.getBytes("UTF-8");
         out.write(bytes.length);
         out.write(bytes);
-        
     }
     
     public void writeInt(int value) throws Exception {
-        // 상속 받은 write() 메서드를 사용하여 int 값 출력
+        // 생성자에서 받은 출력 객체의 write() 메서드를 사용하여 int 값 출력
         out.write(value >> 24);
         out.write(value >> 16);
         out.write(value >> 8);
@@ -34,7 +37,7 @@ public class DataOutputStream extends OutputStream  {
     }
     
     public void writeLong(long value) throws Exception {
-        // 상속 받은 write() 메서드를 사용하여 long 값 출력
+        // 생성자에서 받은 출력 객체의 write() 메서드를 사용하여 long 값 출력
         out.write((int)(value >> 56));
         out.write((int)(value >> 48));
         out.write((int)(value >> 40));
@@ -46,13 +49,16 @@ public class DataOutputStream extends OutputStream  {
     }
     
     public void writeBoolean(boolean value) throws Exception {
-        // 상속 받은 write() 메서드를 사용하여 boolean 값 출력
+        // 생성자에서 받은 출력 객체의 write() 메서드를 사용하여 boolean 값 출력
         if (value) 
             out.write(1);
         else 
             out.write(0);
     }
-    public void close()throws IOException {
+    
+    @Override
+    public void close() throws IOException {
+        // 생성자에서 받은 출력 객체의 close() 메서드를 사용
         out.close();
     }
 }

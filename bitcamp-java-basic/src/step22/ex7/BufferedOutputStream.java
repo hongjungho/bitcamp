@@ -1,15 +1,18 @@
+//버퍼 기능을 입출력 플러그인/장신구(decorator)로 전환한다.  
 package step22.ex7;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class BufferedOutputStream  {
+public class BufferedOutputStream {
+    
     OutputStream out;
+    
     byte[] buf = new byte[8196];
     int cursor;
     
     public BufferedOutputStream(OutputStream out) {
-        this.out = out ;
+        this.out = out;
     }
     
     public void write(int b) throws IOException {

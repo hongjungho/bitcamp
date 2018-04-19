@@ -1,15 +1,21 @@
+// OutputStream에 붙이는 플러그인(decorator)을 다른 플러그인에 붙이려면,
+// 플러그인(decorator) 클래스도 OutputStream의 가족이 되어야 한다.  
 package step22.ex8;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
+// 이 상속은 기능을 상속 받기 위한 것이 아니다.
+// 같은 그룹으로 묶이기 위함이다.
 public class BufferedOutputStream extends OutputStream {
+    
     OutputStream out;
+    
     byte[] buf = new byte[8196];
     int cursor;
     
     public BufferedOutputStream(OutputStream out) {
-        this.out = out ;
+        this.out = out;
     }
     
     public void write(int b) throws IOException {
