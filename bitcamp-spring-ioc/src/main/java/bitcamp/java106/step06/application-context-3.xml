@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <!-- 팩토리 메서드를 통해 객체를 만들기 : 스프링 규칙에 따라  만들기-->
+    
+    <bean id="c1" class="bitcamp.java106.step06.CarFactoryBean">
+    <property name="model" value="소나타"/>
+    </bean>
+    
+    <!-- 자바 코드 : 
+        CarFactroy carFactory = new CarFactory();
+        Object obj = carFactory.create("SM5");
+        objPool.put("c1", obj);
+     -->
+   
+    <!--
+        속성:     factory-bean="공장역할을 수행하는 객체이름"
+            factory-method="인스턴스 메서드 이름"
+            =>factory-bean 속성을 설정하면 factory-method는 스태틱 메서드가 아니라
+            인스턴스 메서드를 가리키게 된다.
+            
+-->          
+</beans>
+
+
+
+
+
