@@ -12,13 +12,11 @@ public class Car6 {
     boolean auto;
     Date createdDate;
     
-    
-    @Autowired
-    @Qualifier("e2") // 의존 객체가 여러개 있을 경우, 주입할 의존 객체의 이름을 지정하라!
+    @Autowired 
+    @Qualifier("e2") // 의존 객체가 여러 개 있을 경우, 주입할 의존 객체의 이름을 지정하라!
                      // 주의!
                      // @Qualifier 애노테이션을 처리할 BeanPostProcessor를 등록해야 한다.
     Engine engine;
-    
     
     @Override
     public String toString() {

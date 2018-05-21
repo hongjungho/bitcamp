@@ -11,13 +11,11 @@ public class Car5 {
     boolean auto;
     Date createdDate;
     
-    
-    // @Autowired의 required 값은 기본이 true 이다.
-    // = > 즉 의존객체 주입이 필수사항이다.
-    // = > 선택사항으로 바꾸고 싶으면 false로 설정하라
-    @Autowired(required=false)
+    // @Autowired의 required 값은 기본이 true이다.
+    // => 즉 의존객체 주입이 필수사항이다.
+    // => 선택사항으로 바꾸고 싶으면 false로 설정하라! 
+    @Autowired(required=false) 
     Engine engine;
-    
     
     @Override
     public String toString() {

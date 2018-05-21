@@ -4,6 +4,9 @@ import java.sql.Date;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Car7 {
     String model;
     String maker;
@@ -11,10 +14,9 @@ public class Car7 {
     boolean auto;
     Date createdDate;
     
-    // 이 애노테이션은 자바에서 제공한다. 
-    @Resource(name="e2")
+    //이 애노테이션은 스프링 프레임워크가 아닌 자바에서 제공한다.
+    @Resource(name="e1")
     Engine engine;
-    
     
     @Override
     public String toString() {
