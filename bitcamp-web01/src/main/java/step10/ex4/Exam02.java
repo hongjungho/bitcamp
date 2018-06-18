@@ -18,24 +18,25 @@ public class Exam02 extends HttpServlet {
     protected void doPost(
             HttpServletRequest request, 
             HttpServletResponse response) throws ServletException, IOException {
+        
         request.setCharacterEncoding("UTF-8");
         String name = request.getParameter("name");
         
         // 파라미터로 받은 데이터를 다른 서블릿에서 사용할 수 있도록 세션에 보관한다.
         HttpSession session = request.getSession();
         session.setAttribute("name", name);
-         
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
         out.println("<html>");
         out.println("<head>");
-        out.println("    <meta charset = 'UTF-8'>");
-        out.println("    <title>페이지 2</title>");
+        out.println("    <meta charset='UTF-8'>");
+        out.println("    <title>페이지2</title>");
         out.println("</head>");
         out.println("<body>");
         out.println("    <h1>페이지 2</h1>");
-        out.println("    <form action= 'exam03' method='post'>");
+        out.println("    <form action='exam03' method='post'>");
         out.println("    나이: <input type='text' name='age'><br>");
         out.println("    <button>다음</button>");
         out.println("    </form>");
@@ -43,6 +44,7 @@ public class Exam02 extends HttpServlet {
         out.println("</html>");
     }
 }
+
 
 
 

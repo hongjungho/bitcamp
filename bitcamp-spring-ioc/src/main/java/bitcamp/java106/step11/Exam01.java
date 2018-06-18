@@ -5,7 +5,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import bitcamp.java106.BeanUtils;
-import bitcamp.java106.step01.AppConfig;
 
 public class Exam01 {
 
@@ -15,6 +14,7 @@ public class Exam01 {
         
         BeanUtils.printBeanNames(iocContainer);
         
+        System.out.println(iocContainer.getBean("car"));
     }
 
 }

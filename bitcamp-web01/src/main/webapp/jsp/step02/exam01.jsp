@@ -1,21 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" 
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>exam01</title>
 </head>
 <body>
-<h1>exam01</h1>
+<h1>JSP 주석</h1>
 <pre>
-구동원리
-클라이언트가 exam01.jsp 을 요청 
-  ===> [JSP 엔진] 
-    ===> .java 소스 생성  : 배치폴더 (ex: tmp0) /work/...
-      ===> [Java 컴파일러] 
-        ===> .class 파일을 생성 : 배치폴더 (ex: tmp0) /work/...
-          ===> service()를 호출하여 서블릿 실행
+JSP 엔진이 자바 소스 파일을 만들 때 무시한다.
+주의!
+HTML 주석과 착각하지 말라!
 </pre>
+<%-- 
+JSP 주석이다. 이 안에 작성하는 모든 내용은 JSP 엔진이 무시한다.
+<p> 오호라.. 이 태그 무시된다 </p>
+--%>
+
+<!--
+HTML 주석이다. JSP 엔진은 이것도 출력 내용으로 간주한다.
+따라서 클라이언트로 출력한다.
+  -->
 </body>
 </html>
+
+
+
+
+
+
+
