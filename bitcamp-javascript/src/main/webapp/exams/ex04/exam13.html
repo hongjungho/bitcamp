@@ -1,68 +1,62 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ex04</title>
+<title>ex13</title>
 </head>
 <body>
-<h1>객체 - 객체 생성과 초기화 VII</h1>
+<h1>객체 - 캡슐화</h1>
 <script>
 "use strict"
 
-// 다음 생성자는 객체를 초기화 시킬때 마다
-// sum()과  aver() 함수를 만들어 등록한다
-// => 메모리 낭비가 발생한다
+// 자바스크립트는 접근 범위를 제어하는 문법(private, protected, public, (default))이 없다.
+// 다만 클로저 메모리를 이용하여 흉내 낼 수 있다.
+// 클로저를 이용하는 경우에는 prototype 저장소에 함수를 저장하면 안된다.
+// 객체가 아닌 클로저에 값을 저장해야 하기 때문에
+// 객체마다 함수를 추가함으로 메모리 낭비가 있다.
 function Score(name, kor, eng, math) {
-	// 생성자로 호출되는 경우, 상위 생성자를 먼저 호출한다.
-	// this.Object(); 
-	
-    this.name = name;
-    this.kor = kor;
-    this.eng = eng;
-    this.math = math;
+    // 외부에서 name, kor, eng, math 값에 접근하지 못하도록
+    // 객체의 저장하지 않는다.
     
-    // 자바스크립트는 자바 설계도를 기반으로 객체를 만드는 것이 아니라
-    // 기본 객체에 필요한 변수나 함수를 추가하는 방식으로 객체를 만든다.
-    // 그러다보니 sum()과 aver()함수처럼 객체가 사용하는 함수는
-    // 객체를 만들때마다 매번 정의하여 객체에 추가해야한다.
-    // 즉 메모리 낭비가 발생한다.
-    // 해결책?
-    // => 객체가 사용하는 함수를 공유하면 메모리 낭비 문제를 해결할수 있다.
-    /*this.sum = function() { 
-        return this.kor + this.eng + this.math
-    };
+    // 이 함수에서 사용하는 kor, eng, math 변수는
+    // 바깥 함수의 로컬 변수이다.
+    // 바깥 함수의 호출이 끝나더라도 해당 변수를 사용해야 하기 때문에
+    // 클로저는 별도의 메모리에 복제해 둔다.
+    this.getName = function() { return name }
+    this.setName = function(n) { name = n }
+    
+    this.getKor = function() { return kor }
+    this.setKor = function(k) { kor = k }
+    
+    this.getEng = function() { return eng }
+    this.setEng = function(e) { return e }
+    
+    this.getMath = function() { return math }
+    this.setMath = function(m) { math = m }
+    
+    this.sum = function() { 
+        return kor + eng + math
+    }
+    
     this.aver = function() { 
         return this.sum() / 3
-    }*/
+    }
 }
 
-// 1) 자바스크립트 함수는 객체이다. 즉 함수 = 객체 + 함수코드
-// 2) 자바스크립트 객체는 공용 저장소를 갖고 있다.
-var scores = []; //new Array();
-scores[0] = new Score("홍길동", 100, 100, 100);
-scores[1] = new Score("임꺽정", 90, 90, 90);
-scores[2] = new Score("유관순", 80, 80, 80);
-// 함수 이름이 대문자로 시작하면 
-// 생성자로 사용하라는 의미이므로 
-// 개발자들이 다음과 같은 실수를 하지 않는다.
-//scores[3] = Score("안중근", 70, 70, 70);
+var s1 = new Score("홍길동", 100, 100, 100);
 
-// 과목의 점수를 변경하더라도 합계와 평균은 다시 계산되기 때문에 편하다!
-scores[2].kor = 100;
+console.log(s1.name) // s1 객체에 name이라는 프로퍼티가 없다. undefined!
+console.log(s1.getName())
+console.log(s1.sum())
+console.log(s1.aver())
 
-for (var score of scores) {
-    console.log(score.name, score.kor, score.eng, score.math, 
-    		score.sum(), score.aver());
-}
+s1.setName("임꺽정");
+console.log(s1.getName());
 
-console.log(scores[0]);
-console.log(scores[1]);
-console.log(scores[2]);
-console.log(scores[0].toString());
+
 </script>
 </body>
 </html>
-
 
 
 
