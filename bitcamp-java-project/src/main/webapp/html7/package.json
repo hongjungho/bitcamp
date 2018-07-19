@@ -1,8 +1,8 @@
 {
-  "name": "webapp",
+  "name": "html5",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "header.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,6 +11,6 @@
   "dependencies": {
     "bootstrap": "^4.1.1",
     "handlebars": "^4.0.11",
-    "jquery": "^1.12.4"
+    "jquery": "~>3.0.0"
   }
 }

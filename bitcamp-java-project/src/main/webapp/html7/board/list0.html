@@ -23,13 +23,11 @@
 </div><!--.container-->
 
 <script id="tr-template" type="text/x-handlebars-template">
-{{#each list}}
 <tr>
 	<td>{{no}}</td>
 	<td><a href='form.html?no={{no}}'>{{title}}</a></td>
 	<td>{{createdDate}}</td>
 </tr>
-{{/each}}
 </script>
 
 <script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
@@ -44,9 +42,29 @@ var trTemplateSrc = $("#tr-template").html();
 var templateFn = Handlebars.compile(trTemplateSrc);
 
 $.getJSON("../../json/board/list", (data) => {
-    //tableBody.innerHTML = templateFn({list:data});
-	$(tableBody).html(templateFn({list:data}))
+    for (var item of data) {
+    	// 위에서 준비한 템플릿 엔진과 데이터를 가지고 tr HTML을 생성한다.
+    	var trHTML = templateFn(item);
+        $(trHTML).appendTo(tableBody);
+    }
 });
+/*
+$.ajax("../../json/board/list", {
+    dataType: "json",
+    success(data) {
+    	for (var item of data) {
+            var tr = document.createElement("tr");
+            tr.innerHTML = "<td>" + item.no + "</td>" + 
+                "<td><a href='form.html?no=" + item.no + "'>" + item.title + "</a></td>" + 
+                "<td>" + item.createdDate + "</td>";
+            tableBody.appendChild(tr);
+        }
+    },
+    error() {
+        window.alert("실행 오류!");
+    }
+});
+*/
 </script>
 
 </body>

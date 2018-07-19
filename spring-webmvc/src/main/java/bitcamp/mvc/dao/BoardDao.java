@@ -54,8 +54,6 @@ public class BoardDao {
         b1.setUser(writer);
         b1.setCreatedDate(Date.valueOf("2018-6-22"));
         list.add(b1);
-        
-
     }
     
     ArrayList<Board> list = new ArrayList<>();

@@ -19,6 +19,7 @@ public class BoardController {
     
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
+        
     }
 
     @RequestMapping("form")
