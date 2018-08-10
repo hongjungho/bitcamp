@@ -33,14 +33,14 @@ const
 
 // Sets server port and logs message on success
 // app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
- 
 var options = {
-		key: fs.readFileSync('home/ec2-user/custom.key'),
-		cert: fs.readFileSync('home/ec2-user/www_hongdori_xyz.crt')
-}
-HTTPS.createServer(options,app).listen(1337, () => {
-	 console.log('webhook is listening')
- });
+		   key: fs.readFileSync('/home/ec2-user/custom.key'),
+		   cert: fs.readFileSync('/home/ec2-user/www_hongdori_xyz.crt')
+		};
+		https.createServer(options, app).listen(1337, ()=> {
+		   console.log('webhook is listening')
+		});
+
 // Accepts POST requests at /webhook endpoint
 app.post('/webhook', (req, res) => {  
 
