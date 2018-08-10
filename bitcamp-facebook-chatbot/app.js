@@ -44,7 +44,7 @@ HTTPS.createServer(options,app).listen(1337, () => {
 // Accepts POST requests at /webhook endpoint
 app.post('/webhook', (req, res) => {  
 
-  // Parse the request body from the POST
+  // Parse the request body from the POST 
   let body = req.body;
 
   // Check the webhook event is from a Page subscription
