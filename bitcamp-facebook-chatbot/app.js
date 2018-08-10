@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2017-present, Facebook, Inc. All rights reserved.
  *
@@ -24,7 +23,7 @@
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 // Imports dependencies and set up http server
 const 
-  HTTPS = require('https'),
+  https = require('https'),
   fs = require('fs'),
   request = require('request'),
   express = require('express'),
@@ -32,19 +31,21 @@ const
   app = express().use(body_parser.json()); // creates express http server
 
 // Sets server port and logs message on success
-// app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+//app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
+
 var options = {
-		   key: fs.readFileSync('/home/ec2-user/custom.key'),
-		   cert: fs.readFileSync('/home/ec2-user/www_hongdori_xyz.crt')
-		};
-			HTTPS.createServer(options, app).listen(1337, ()=> {
-		   console.log('webhook is listening')
-		});
+    key: fs.readFileSync('/home/ec2-user/custom.key'),
+    cert: fs.readFileSync('/home/ec2-user/www_hongdori_xyz.crt')
+};
+
+https.createServer(options, app).listen(1337, () => {
+    console.log('webhook is listening')
+});
 
 // Accepts POST requests at /webhook endpoint
 app.post('/webhook', (req, res) => {  
 
-  // Parse the request body from the POST 
+  // Parse the request body from the POST
   let body = req.body;
 
   // Check the webhook event is from a Page subscription
@@ -85,7 +86,7 @@ app.post('/webhook', (req, res) => {
 app.get('/webhook', (req, res) => {
   
   /** UPDATE YOUR VERIFY TOKEN **/
-  const VERIFY_TOKEN = "process.env.VERIFY_TOKEN";
+  const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
   
   // Parse params from the webhook verification request
   let mode = req.query['hub.mode'];
